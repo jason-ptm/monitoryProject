@@ -1,0 +1,61 @@
+:root {
+    --header-height: 3rem;
+    --nav-width: 68px;
+    --first-color: #4723D9;
+    --first-color-light: #AFA5D9;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+#outlet-div {
+    padding-left: 100px !important;
+}
+
+@media screen and (max-width:660px) {
+    #outlet-div {
+        padding-left: 30px;
+    }
+}
+
+.table td {
+    height: 42px;
+}
+
+.celd {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 1px;
+}
+
+.celd .assist {
+    background-color: #58D68D;
+}
+
+.celd .class {
+    background-color: #339FFF;
+}
+
+.celd div {
+    border-radius: 2px;
+    flex-basis: 42px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -1,0 +1,7 @@
+{
+    "/apimonitorias/*": {
+        "target": "http://localhost:3000/apimonitorias/",
+        "secure": false,
+        "loglevel": "debug"
+    }
+}

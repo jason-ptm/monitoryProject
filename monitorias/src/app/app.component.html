@@ -1,0 +1,46 @@
+<div id="body">
+  <header class="header" id="header">
+    <div class="header_toggle">
+      <i class='bx fa-solid fa-bars' id="header-toggle" (click)="openMenu()"></i>
+    </div>
+    <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+      <a style="cursor: pointer;" class="nav-logo text-dark" routerLink="{{urlActual}}/add">
+        <i class='bx fa-solid fa-circle-plus'></i>
+        <span class="nav_logo-name text-dark ps-2">Añadir</span>
+      </a>
+      <a style="cursor: pointer;" class="nav-logo text-dark ps-5" routerLink="classRoom/view">
+        <i class='bx fa-solid fa-light fa-table'></i>
+        <span class="nav_logo-name text-dark ps-2">Visualizar</span>
+      </a>
+    </nav>
+  </header>
+  <div style="display: flex;">
+    <div class="l-navbar" id="nav-bar">
+      <nav class="nav">
+        <div>
+          <div class="nav_list">
+            <a href="#" class="nav_logo">
+              <i class='bx nav_logo-icon fa-solid fa-calendar'></i>
+              <span class="nav_logo-name">Horarios</span>
+            </a>
+            <hr>
+            <a class="nav_link" [routerLinkActive]="'active'" [routerLink]="'/classRoom'" (click)="setUrl('classRoom')">
+              <i class='bx bx-x fa-solid fa-book'></i>
+              <span class="nav_name">Clases</span>
+            </a>
+            <a href="#" class="nav_link" [routerLinkActive]="'active'" [routerLink]="'/assistant'"
+              (click)="setUrl('assistant')">
+              <i class='bx bx-x fa-solid fa-user'></i>
+              <span class="nav_name">Monitores</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!--Container Main start-->
+    <div class="bg-light d-flex flex-column" style="padding:80px 30px; position: relative; width: 100%;" id="outlet-div">
+      <router-outlet></router-outlet>
+    </div>
+    <!--Container Main end-->
+  </div>
+</div>

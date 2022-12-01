@@ -1,0 +1,80 @@
+.details{
+    height: 0;
+    position: relative;
+    visibility: hidden;
+    padding: 0;
+    gap: 10px;
+    transition: height .5s;
+}
+.btn{
+    position: relative;
+}
+.btn.active, .table .active{
+    background-color: #339FFF;
+}
+.active.details{
+    padding: 30px;
+    height: 200px;
+    visibility: visible;
+}
+.text{
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.text .arrow-icon{
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+.arrow-icon .icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.arrow-icon .icon::before{
+    content:'';
+    display: block;
+    width: 50%;
+    height: 2px;
+    background-color: black;
+    transform: rotate(45deg) translate(3px);
+    transition: transform .5s;
+}
+.arrow-icon .icon::after{
+    content:'';
+    display: block;
+    width: 50%;
+    height: 2px;
+    background-color: black;
+    transform: rotate(-45deg) translate(-3px);
+    transition: transform .5s;
+}
+.active .icon::before{
+    background-color: #fff;
+}
+.active .icon::after{
+    background-color: #fff;
+}
+
+.active.icon::before{
+    transform: rotate(-45deg) translate(2px) !important;
+}
+.active.icon::after{
+    transform: rotate(45deg) translate(-2px) !important;
+}
+.trash{
+    position: absolute;
+    bottom: 10px;
+    right: 16px;
+    transition: transform .5s, color .5s;
+}
+.trash:hover{
+    color: #B7B7B7;
+    transform: scale(1.1);
+}

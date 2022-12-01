@@ -1,0 +1,22 @@
+###
+POST http://localhost:3000/apimonitorias/classroom
+Content-Type: application/json
+
+{
+    "teachName": "juan",
+    "className":"calculo",
+    "calendar":[
+        [
+                {
+                "selected":true,
+                "build":"32423423"
+            }
+        ]
+    ]
+
+}
+
+###
+
+GET http://localhost:3000/apimonitorias/classroom
+

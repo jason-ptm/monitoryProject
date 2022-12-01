@@ -1,0 +1,102 @@
+<div class="d-flex flex-row justify-content-around align-items-center flex-wrap" style="gap:30px;">
+    <div class="list-group list-group-light" style="flex-basis: 250px; flex-grow: 1; max-width: 300px;">
+        <button type="button" class="list-group-item list-group-item-action px-3 border-0 btn" #classElement
+            *ngFor="let classRoom of _classRoomService.getClassRoomsArray()"
+            (click)="selectClass(classElement, classRoom)">
+            <p class="text">
+                {{classRoom.className}} - {{classRoom.id}}
+                <span class="arrow-icon">
+                    <span class="icon"></span>
+                </span>
+            </p>
+            <div class="details d-flex flex-column justify-content-around align-items-center">
+                <div class="text-center">
+                    <p class="fw-bold" style="margin:0;">Clase:</p>
+                    {{classRoom.className}}
+                </div>
+                <div class="text-center">
+                    <p class="fw-bold" style="margin:0;">Nombre profesor:</p>
+                    {{classRoom.teachName}}
+                </div>
+                <div class="text-center">
+                    <p class="fw-bold" style="margin:0;">Monitores:</p>
+                    <div *ngFor="let assistant of classRoom.assistant">
+                        {{assistant.name}}
+                    </div>
+                    <span *ngIf="classRoom.assistant?.length == 0">No hay monitores asignados</span>
+                </div>
+                <span class="trash" (click)="deleteClassRoom()">
+                    <i class="fa-solid fa-trash"></i>
+                </span>
+            </div>
+            
+        </button>
+    </div>
+    <div style="flex-basis: 250px; flex-grow: 2;">
+        <table class="table table-bordered" style="overflow-x: auto;">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Lunes</th>
+                    <th scope="col">Martes</th>
+                    <th scope="col">Miércoles</th>
+                    <th scope="col">Jueves</th>
+                    <th scope="col">Viernes</th>
+                    <th scope="col">Sabado</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="_classRoomService.selectedClassRoom == undefined">
+                <tr *ngFor="let row of _classRoomService.calendarClassRoom ; let i = index">
+                    <th scope="col">{{dataService.hours[i]}}</th>
+                    <td *ngFor="let celd of row"></td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="_classRoomService.selectedClassRoom != undefined">
+                <tr *ngFor="let row of _classRoomService.selectedClassRoom.calendar; let i = index">
+                    <th scope="col">{{dataService.hours[i]}}</th>
+                    <td *ngFor="let celd of row; let j = index" style="max-width: 90px; padding: 0;"
+                        class="text-center">
+                        <div class="celd">
+                            <div [ngClass]="[celd.selected ? celd.type : '']" *ngIf="celd.room != undefined">
+                                <span class="text-center" style="width: 100%; word-break:break-all;">{{celd.room}}</span>
+                            </div>
+                            <div *ngIf="_classRoomService.selectedClassRoom.assistant.length < 0">
+
+                            </div>
+                            <div *ngFor="let assistant of _classRoomService.selectedClassRoom.assistant">
+                                <div
+                                    *ngIf="assistant.calendar[i][j].selected"
+                                    [ngClass]="[assistant.calendar[i][j].selected ? assistant.calendar[i][j].type : '']">
+                                    <span class="text-center" style="width: 100%; word-break:break-all;">
+                                        {{assistant.name}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<swal #celdInfo [showConfirmButton]="false" [showCloseButton]="true">
+    <div *swalPortal="swalTargets.content">
+        <div class="d-flex flex-column justify-content-around align-items-center" style="padding: 30px; gap:10px;"
+            *ngIf="_classRoomService.selectedCeld != undefined">
+            <div class="text-center">
+                <p class="fw-bold" style="margin:0;">Salón:</p>
+                {{_classRoomService.selectedCeld.room}}
+            </div>
+            <div class="text-center">
+                <p class="fw-bold" style="margin:0;">Edificio:</p>
+                {{_classRoomService.selectedCeld.build}}
+            </div>
+            <div class="text-center">
+                <p class="fw-bold" style="margin:0;">Tipo de salón:</p>
+                {{_classRoomService.selectedCeld.roomType}}
+            </div>
+        </div>
+    </div>
+
+</swal>

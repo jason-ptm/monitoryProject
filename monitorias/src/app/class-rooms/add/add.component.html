@@ -1,0 +1,150 @@
+<form class="d-flex flex-row justify-content-around align-items-center flex-wrap" style="gap:30px;"
+    [formGroup]="classRoomForm">
+    <div style="flex-basis: 250px; flex-grow: 1; max-width: 300px;">
+        <div class="form-outline column">
+            <label for="name" class="form-label" [ngClass]="{'text-danger': 
+                (classRoomForm.controls['name'].dirty ||
+                classRoomForm.controls['name'].touched) && 
+                classRoomForm.controls['name'].invalid}" #nameLabel>Nombre materia</label>
+            <div class="row" style="height: 62px;">
+                <div>
+                    <input type="text" class="form-control" id="name" placeholder="Nombre..." formControlName="name"
+                        [ngClass]="{'is-invalid': 
+                        (classRoomForm.controls['name'].dirty || 
+                        classRoomForm.controls['name'].touched) && 
+                        classRoomForm.controls['name'].invalid}" #nameInput>
+                </div>
+                <div>
+                    <small id="nameHelp" class="text-danger" *ngIf="(classRoomForm.controls['name']?.dirty || 
+                        classRoomForm.controls['name']?.touched) && 
+                        classRoomForm.controls['name']?.invalid">Campo invalido!</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-outline column">
+            <label for="teachName" class="col-form-label" [ngClass]="{'text-danger': 
+                (classRoomForm.controls['teachName'].invalid && 
+                (classRoomForm.controls['teachName'].touched || 
+                classRoomForm.controls['teachName'].dirty))}">Nombre profesor</label>
+            <div class="row" style="height: 62px;">
+                <div>
+                    <input type="text" class="form-control" id="teachName" placeholder="Nombre..."
+                        formControlName="teachName" [ngClass]="{'is-invalid' : 
+                        (classRoomForm.controls['teachName'].invalid && 
+                        (classRoomForm.controls['teachName'].touched || 
+                        classRoomForm.controls['teachName'].dirty))}">
+                </div>
+                <div>
+                    <small id="teachNameHelp" class="text-danger" *ngIf="(classRoomForm.controls['teachName']?.dirty || 
+                        classRoomForm.controls['teachName']?.touched) && 
+                        classRoomForm.controls['teachName']?.invalid">Campo invalido!</small>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block mb-4" [disabled]="classRoomForm.invalid"
+            (click)="addClassRoom()">Añadir</button>
+    </div>
+    <div style="flex-basis: 250px; flex-grow: 2;">
+        <div class="alert alert-warning" role="alert">
+            <i class="fa-sharp fa-solid fa-circle-exclamation text-danger"></i>
+            Ingrese los horarios de clase
+        </div>
+        <table class="table table-bordered" style="overflow-x: auto;">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col" style="max-width: 100px;">Hora</th>
+                    <th scope="col">Lunes</th>
+                    <th scope="col">Martes</th>
+                    <th scope="col">Miércoles</th>
+                    <th scope="col">Jueves</th>
+                    <th scope="col">Viernes</th>
+                    <th scope="col">Sabado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of _classRoomService.calendarClassRoom; let i = index">
+                    <th scope="col">{{dataService.hours[i]}}</th>
+                    <td style="max-width: 90px; padding: 0;" class="hover-celd text-center" *ngFor="let celd of row; let j = index" (click)="resaltCeld(i,j)">
+                        <div class="celd">
+                            <div [ngClass]="[celd.selected ? celd.type : '']">
+                                <span class="text" style="width: 100%; word-break:break-all;"
+                                *ngIf="celd.room != undefined">{{celd.room}}</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<swal #roomSiteForm [showCloseButton]="true" [showConfirmButton]="true" [preConfirm]="handlePreConfirm"
+    confirmButtonText="Añadir">
+    <form class="" id="swal-form" *swalPortal="swalTargets.content" [formGroup]="classRoomSiteForm">
+        <div class="inputs-cont">
+
+            <div style="max-width:200px; margin-bottom:10px;">
+                <label class="col-form-label" [ngClass]="{'text-danger': 
+                    (classRoomSiteForm.controls['build'].dirty ||
+                    classRoomSiteForm.controls['build'].touched) && 
+                    classRoomSiteForm.controls['build'].invalid}">Tipo salon</label>
+                <div class="row">
+                    <div class="radio-group">
+                        <div class="form-check" *ngFor="let roomType of dataService.roomType">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="{{roomType}}"
+                                (click)="changeFormValue('roomType',$event)" [value]="roomType" />
+                            <label class="form-check-label" for="{{roomType}}">{{roomType}}</label>
+                        </div>
+                    </div>
+                    <div>
+                        <small class="text-danger" *ngIf="(classRoomSiteForm.controls['build']?.dirty || 
+                            classRoomSiteForm.controls['build']?.touched) && 
+                            classRoomSiteForm.controls['build']?.invalid">Campo invalido!</small>
+                    </div>
+                </div>
+            </div>
+
+            <div style="max-width:200px; margin-bottom:10px;">
+                <label for="nameInput" class="col-form-label" [ngClass]="{'text-danger': 
+                        (classRoomSiteForm.controls['classRoomNumber'].dirty ||
+                        classRoomSiteForm.controls['classRoomNumber'].touched) && 
+                        classRoomSiteForm.controls['classRoomNumber'].invalid}" #nameLabel>Salón</label>
+                <div class="row" style="height: 62px;">
+                    <div>
+                        <input type="text" class="form-control" id="nameInput" placeholder="Salón..."
+                            formControlName="classRoomNumber" [ngClass]="{'is-invalid': 
+                                (classRoomSiteForm.controls['classRoomNumber'].dirty || 
+                                classRoomSiteForm.controls['classRoomNumber'].touched) && 
+                                classRoomSiteForm.controls['classRoomNumber'].invalid}">
+                    </div>
+                    <div>
+                        <small class="text-danger" *ngIf="(classRoomSiteForm.controls['classRoomNumber']?.dirty || 
+                                classRoomSiteForm.controls['classRoomNumber']?.touched) && 
+                                classRoomSiteForm.controls['classRoomNumber']?.invalid">Campo invalido!</small>
+                    </div>
+                </div>
+            </div>
+
+            <div style="max-width:200px; margin-bottom:10px;">
+                <label class="col-form-label" [ngClass]="{'text-danger': 
+                        (classRoomSiteForm.controls['build'].dirty ||
+                        classRoomSiteForm.controls['build'].touched) && 
+                        classRoomSiteForm.controls['build'].invalid}">Sede</label>
+                <div class="row">
+                    <select class="form-select" id="location" formControlName="build"
+                        (change)="changeFormValue('build',$event)">
+                        <option [ngValue]="sede" *ngFor="let sede of dataService.sedes">{{sede}}</option>
+                    </select>
+                    <div>
+                        <small class="text-danger" *ngIf="(classRoomSiteForm.controls['build']?.dirty || 
+                                classRoomSiteForm.controls['build']?.touched) && 
+                                classRoomSiteForm.controls['build']?.invalid">Campo invalido!</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</swal>
