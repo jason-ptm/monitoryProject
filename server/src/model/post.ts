@@ -33,7 +33,7 @@ const roomSchema = new Schema<Room>({
 })
 
 const assistantSchema = new Schema<Assistant>({
-    code: { type: String, unique: true },
+    code: { type: String},
     name: { type: String },
     calendar: [roomSchema]
 })
@@ -46,6 +46,6 @@ const classRoomSchema = new Schema<ClassRoom>({
     assistant: [{type: assistantSchema, default: undefined}]
 })
 
-export const roomModel = mongoose.model('Room', roomSchema)
-export const assistantModel = mongoose.model('Assistant', assistantSchema)
+// export const roomModel = mongoose.model('Room', roomSchema)
+// export const assistantModel = mongoose.model('Assistant', assistantSchema)
 export const classRoomModel = mongoose.model('ClassRoom', classRoomSchema)

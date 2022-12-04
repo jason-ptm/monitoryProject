@@ -1,7 +1,8 @@
 import getNewRoom from "./roomUtils";
-import { AssistantDB, ClassRoomDB, NewClassRoom, RoomDB, Room, build, roomType, type } from "../types";
+import { AssistantDB, ClassRoomDB, NewClassRoom, RoomDB} from "../types";
 
 const parserString = (unParserStrign: any, type: string): string => {
+    console.log(unParserStrign)
     if ((typeof unParserStrign != 'string')) {
         console.log(`Incorrect or missing ${type}`)
         throw new Error(`Incorrect or missing ${type}`)
@@ -40,7 +41,7 @@ const parseCalendar = (unParserCalendar: any): RoomDB[] => {
     return parserCalendar
 }
 
-export const parseAssist = (unParserAssistant: any): AssistantDB => {
+const parseAssist = (unParserAssistant: any): AssistantDB => {
     return {
         name: parserString(unParserAssistant.name, 'assistant name'),
         code: parseCode(unParserAssistant.code),
@@ -49,44 +50,16 @@ export const parseAssist = (unParserAssistant: any): AssistantDB => {
 
 }
 
-const parseAssistants = (unParserAssistants: any): AssistantDB[] => {
+export const parseAssistants = (unParserAssistants: any): AssistantDB[] => {
+    console.log(unParserAssistants)
     if (!Array.isArray(unParserAssistants)) {
-        throw new Error(`Incorrect or missing calendar`)
+        throw new Error(`Incorrect or missing assistants`)
     }
     for (let i = 0; i < unParserAssistants.length; i++) {
         unParserAssistants[i] = parseAssist(unParserAssistants[i])
     }
     return unParserAssistants
 }
-
-export const parseCalendarDB = (unParserCalendar: any): Room[][] => {
-    let newRoom: Room[][] = []
-    for (let i = 0; i < 16; i++) {
-        newRoom.push([])
-        for (let j = 0; j < 6; j++) {
-            newRoom[i].push({
-                selected: false,
-                build: build.undefined,
-                roomType: roomType.undefined,
-                room: '',
-                type: type.undefined
-            })
-        }
-    }
-
-    unParserCalendar.forEach((element:RoomDB) =>{
-        newRoom[element.index[0] as number][element.index[1] as number] = {
-            selected: true,
-            build: element.build,
-            roomType: element.roomType,
-            room: element.room,
-            type: element.type
-        }
-    })
-
-    return newRoom
-}
-
 
 export const getNewClassRoom = (unParserClassRoom: any): NewClassRoom => {
     return {

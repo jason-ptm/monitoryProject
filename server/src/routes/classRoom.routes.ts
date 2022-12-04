@@ -1,11 +1,6 @@
 import express from 'express'
-// import cors from 'cors'
 import { addAssistant, addClassRoom, getClassRooms, putClassRoom } from '../services/roomService'
-import { getClassRoom, getNewClassRoom, parseAssist } from '../utils/classRoomUtils'
-
-// const options: cors.CorsOptions = {
-//     origin: ['http://localhost:4200']
-// }
+import { getClassRoom, getNewClassRoom, parseAssistants } from '../utils/classRoomUtils'
 
 
 const classRoomRouter = express.Router()
@@ -13,9 +8,10 @@ const classRoomRouter = express.Router()
 
 classRoomRouter.get('/', (_req, res) => {
     try {
-        const classRooms = getClassRooms()
-        console.log(classRooms)
-        res.status(200).send(classRooms)
+        getClassRooms().then(data=>{
+            res.status(200).send(data)
+        })
+        
     } catch (e: any) {
         res.status(400).send(e.message)
     }
@@ -29,9 +25,9 @@ classRoomRouter.get('/:id', (_req, res) => {
 
 classRoomRouter.patch('/:id', (req, res) => {
     try {
-        const newAssistant = parseAssist(req.body)
-        addAssistant(newAssistant, req.params.id)
-        res.send(newAssistant).status(200)
+        const newAssistants = parseAssistants(req.body)
+        addAssistant(newAssistants, req.params.id)
+        res.send(newAssistants).status(200)
     } catch (e: any) {
         res.send(e.message).status(400)
     }

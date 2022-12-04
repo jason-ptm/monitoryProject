@@ -51,6 +51,7 @@ export interface RoomDB extends Room{
 }
 
 export interface ClassRoom {
+    _id: string
     id: string
     teachName: string
     className: string
@@ -66,4 +67,4 @@ export interface ClassRoomDB{
     assistant: AssistantDB[]
 }
 
-export type NewClassRoom = Omit<ClassRoomDB, 'id' | 'assistant'>
+export type NewClassRoom = Omit<ClassRoomDB, 'id' | 'assistant' | '_id'>
