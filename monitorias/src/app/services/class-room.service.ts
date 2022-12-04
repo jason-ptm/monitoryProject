@@ -15,7 +15,7 @@ export class ClassRoomService {
   public assistant!: Assistant;
   public selectedCeld !: Room | undefined;
 
-  private url: string = 'http://localhost:3000/apimonitorias/'
+  private url: string = 'https://damp-harbor-33548.herokuapp.com/'
 
   calendarClassRoom: Room[][] = [
     [{ selected: false }, { selected: false }, { selected: false }, { selected: false }, { selected: false }, { selected: false }],
@@ -143,7 +143,6 @@ export class ClassRoomService {
 
   getClassRooms(): void {
     this.http.get<ClassRoom[]>(this.url + 'classroom').subscribe(res => {
-      console.log(res)
       this.classRoomsArray = res
     })
   }

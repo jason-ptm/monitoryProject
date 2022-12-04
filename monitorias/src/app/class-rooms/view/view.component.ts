@@ -59,7 +59,6 @@ export class ViewComponent implements OnInit {
       this.tempElement = element;
     }
     this._classRoomService.setSelectedClassRoom(classRoom);
-    console.log(this._classRoomService.selectedClassRoom)
   }
 
   deleteClassRoom() {

@@ -58,13 +58,14 @@
                         class="text-center">
                         <div class="celd">
                             <div [ngClass]="[celd.selected ? celd.type : '']"
-                                *ngIf="celd.room != undefined && celd.selected">
+                                *ngIf="celd.room != undefined && celd.selected" (click)="showCeldInfo(i,j)">
                                 <span class="text-center"
                                     style="width: 100%; word-break:break-all;">{{celd.room}}</span>
                             </div>
                             <ng-container *ngFor="let assistant of _classRoomService.selectedClassRoom.assistant">
                                 <div *ngIf="assistant.calendar[i][j].selected"
-                                    [ngClass]="[assistant.calendar[i][j].selected ? assistant.calendar[i][j].type : '']">
+                                    [ngClass]="[assistant.calendar[i][j].selected ? assistant.calendar[i][j].type : '']"
+                                    (click)="showCeldInfo(i,j)">
                                     <span class="text-center" style="width: 100%; word-break:break-all;">
                                         {{assistant.name}}
                                     </span>
