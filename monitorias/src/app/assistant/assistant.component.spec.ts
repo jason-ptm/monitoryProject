@@ -8,9 +8,9 @@ describe('AssistantComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AssistantComponent ]
+      declarations: [AssistantComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

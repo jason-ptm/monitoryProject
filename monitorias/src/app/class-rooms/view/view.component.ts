@@ -29,8 +29,8 @@ export class ViewComponent implements OnInit {
   }
 
   showCeldInfo(x: number, y: number) {
-    if(this._classRoomService.selectedClassRoom?.calendar[x][y].selected){
-      this._classRoomService.setSelectedCeld(x,y)
+    if (this._classRoomService.selectedClassRoom?.calendar[x][y].selected) {
+      this._classRoomService.setSelectedCeld(x, y)
       this.celdInfo.fire();
     }
   }
@@ -59,9 +59,10 @@ export class ViewComponent implements OnInit {
       this.tempElement = element;
     }
     this._classRoomService.setSelectedClassRoom(classRoom);
+    console.log(this._classRoomService.selectedClassRoom)
   }
 
-  deleteClassRoom(){
+  deleteClassRoom() {
     console.log(1)
   }
 }

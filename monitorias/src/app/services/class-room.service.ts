@@ -108,20 +108,6 @@ export class ClassRoomService {
     }
   }
 
-  getClassRooms(): void {
-    this.http.get<ClassRoom[]>(this.url + 'classroom').subscribe(res => {
-      this.classRoomsArray = res
-    })
-  }
-
-  addClassRoom(teachName: string, className: string): Observable<ClassRoom> {
-    return this.http.post<ClassRoom>(this.url + 'classroom', {
-      teachName: teachName,
-      className: className,
-      calendar: this.calendarClassRoom
-    })
-  }
-
   selectCeld(formValues: any, x: number, y: number): void {
     this.calendarClassRoom[x][y] =
     {
@@ -155,11 +141,24 @@ export class ClassRoomService {
     }
   }
 
-  addAssistant(formValues: any): Observable<Assistant> {
-    return this.http.patch<Assistant>(this.url + 'classroom/' + this.selectedClassRoom?.id,{
-      name: formValues.name,
-      code: formValues.code,
-      calendar: this.calendarAssistant
+  getClassRooms(): void {
+    this.http.get<ClassRoom[]>(this.url + 'classroom').subscribe(res => {
+      console.log(res)
+      this.classRoomsArray = res
     })
+  }
+
+  addClassRoom(teachName: string, className: string): Observable<ClassRoom> {
+    return this.http.post<ClassRoom>(this.url + 'classroom', {
+      teachName: teachName,
+      className: className,
+      calendar: this.calendarClassRoom
+    })
+  }
+
+  addAssistant(formValues: any): Observable<Assistant> {
+    let temp = this.selectedClassRoom?.assistant
+    temp?.push(new Assistant(formValues.code, formValues.name, this.calendarAssistant))
+    return this.http.patch<Assistant>(this.url + 'classroom/' + this.selectedClassRoom?._id, temp)
   }
 }

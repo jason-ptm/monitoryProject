@@ -29,7 +29,7 @@
                     <i class="fa-solid fa-trash"></i>
                 </span>
             </div>
-            
+
         </button>
     </div>
     <div style="flex-basis: 250px; flex-grow: 2;">
@@ -57,21 +57,19 @@
                     <td *ngFor="let celd of row; let j = index" style="max-width: 90px; padding: 0;"
                         class="text-center">
                         <div class="celd">
-                            <div [ngClass]="[celd.selected ? celd.type : '']" *ngIf="celd.room != undefined">
-                                <span class="text-center" style="width: 100%; word-break:break-all;">{{celd.room}}</span>
+                            <div [ngClass]="[celd.selected ? celd.type : '']"
+                                *ngIf="celd.room != undefined && celd.selected">
+                                <span class="text-center"
+                                    style="width: 100%; word-break:break-all;">{{celd.room}}</span>
                             </div>
-                            <div *ngIf="_classRoomService.selectedClassRoom.assistant.length < 0">
-
-                            </div>
-                            <div *ngFor="let assistant of _classRoomService.selectedClassRoom.assistant">
-                                <div
-                                    *ngIf="assistant.calendar[i][j].selected"
+                            <ng-container *ngFor="let assistant of _classRoomService.selectedClassRoom.assistant">
+                                <div *ngIf="assistant.calendar[i][j].selected"
                                     [ngClass]="[assistant.calendar[i][j].selected ? assistant.calendar[i][j].type : '']">
                                     <span class="text-center" style="width: 100%; word-break:break-all;">
                                         {{assistant.name}}
                                     </span>
                                 </div>
-                            </div>
+                            </ng-container>
                         </div>
                     </td>
                 </tr>

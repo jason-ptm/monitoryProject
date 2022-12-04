@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AssistantComponent } from './assistant/assistant.component';
 
 const routes: Routes = [
   {
@@ -8,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'assistant',
-    loadChildren: () => import('./assistant/assistant.module').then(m => m.AssistantModule)
+    component: AssistantComponent
   },
   {
     path: '**',

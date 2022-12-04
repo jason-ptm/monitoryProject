@@ -1,0 +1,39 @@
+celd {
+    cursor: pointer;
+    transition: background .9s;
+}
+
+celd:hover {
+    background: #58D68D;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+#swal-form {
+    max-width: 600px;
+    max-height: 600px;
+    padding-top: 20px;
+}
+
+#swal-form .inputs-cont {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#swal-form .form-check-input,
+#swal-form .form-check-label {
+    cursor: pointer;
+}
+
+#swal-form .radio-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}

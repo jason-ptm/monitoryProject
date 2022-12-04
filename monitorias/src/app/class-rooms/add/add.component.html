@@ -66,11 +66,12 @@
             <tbody>
                 <tr *ngFor="let row of _classRoomService.calendarClassRoom; let i = index">
                     <th scope="col">{{dataService.hours[i]}}</th>
-                    <td style="max-width: 90px; padding: 0;" class="hover-celd text-center" *ngFor="let celd of row; let j = index" (click)="resaltCeld(i,j)">
+                    <td style="max-width: 90px; padding: 0;" class="hover-celd text-center"
+                        *ngFor="let celd of row; let j = index" (click)="resaltCeld(i,j)">
                         <div class="celd">
                             <div [ngClass]="[celd.selected ? celd.type : '']">
                                 <span class="text" style="width: 100%; word-break:break-all;"
-                                *ngIf="celd.room != undefined">{{celd.room}}</span>
+                                    *ngIf="celd.room != undefined">{{celd.room}}</span>
                             </div>
                         </div>
                     </td>
