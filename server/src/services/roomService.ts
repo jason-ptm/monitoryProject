@@ -13,23 +13,23 @@ export const addClassRoom = async (newClassRoom: NewClassRoom): Promise<any> => 
 
 export const putClassRoom = (newClassRoom: ClassRoomDB, id: string): ClassRoomDB => {
     let index = classRooms.findIndex(classRoom => classRoom.id == id)
-    classRoomModel.findByIdAndUpdate(id, newClassRoom).then(data =>{
-        console.log(data)
+    classRoomModel.findByIdAndUpdate(id, newClassRoom).then(_data => {
+        
     })
     classRooms[index] = newClassRoom
     return classRooms[index]
 }
 
 export const addAssistant = async (newAssistant: AssistantDB[], id: string): Promise<any> => {
-    return await classRoomModel.findByIdAndUpdate(id, {assistant: newAssistant})
-        .then(data =>{
+    return await classRoomModel.findByIdAndUpdate(id, { assistant: newAssistant })
+        .then(data => {
             return data
         })
-        .catch((e:any)=>{
+        .catch((e: any) => {
             console.log(e)
             throw new Error('Error in add assistant')
         })
-    
+
 }
 
 export const getClassRooms = async (): Promise<ClassRoom[]> => {
@@ -57,6 +57,16 @@ export const getClassRooms = async (): Promise<ClassRoom[]> => {
     })
         .catch((e: any) => {
             console.log(e)
+            throw new Error(e)
+        })
+}
+
+export const deleteClassRoom = async (id: string): Promise<any> => {
+    return await classRoomModel.findByIdAndDelete(id)
+        .then(data => {
+            return data
+        }).catch((e: any) => {
+            console.log('No classroom deleted')
             throw new Error(e)
         })
 }

@@ -2,7 +2,6 @@ import getNewRoom from "./roomUtils";
 import { AssistantDB, ClassRoomDB, NewClassRoom, RoomDB} from "../types";
 
 const parserString = (unParserStrign: any, type: string): string => {
-    console.log(unParserStrign)
     if ((typeof unParserStrign != 'string')) {
         console.log(`Incorrect or missing ${type}`)
         throw new Error(`Incorrect or missing ${type}`)
@@ -51,7 +50,6 @@ const parseAssist = (unParserAssistant: any): AssistantDB => {
 }
 
 export const parseAssistants = (unParserAssistants: any): AssistantDB[] => {
-    console.log(unParserAssistants)
     if (!Array.isArray(unParserAssistants)) {
         throw new Error(`Incorrect or missing assistants`)
     }
