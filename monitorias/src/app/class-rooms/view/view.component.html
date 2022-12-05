@@ -25,7 +25,7 @@
                     </div>
                     <span *ngIf="classRoom.assistant?.length == 0">No hay monitores asignados</span>
                 </div>
-                <span class="trash" (click)="deleteClassRoom()">
+                <span class="trash" (click)="deleteClassRoom(classRoom)">
                     <i class="fa-solid fa-trash"></i>
                 </span>
             </div>

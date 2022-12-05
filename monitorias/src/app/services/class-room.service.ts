@@ -15,7 +15,7 @@ export class ClassRoomService {
   public assistant!: Assistant;
   public selectedCeld !: Room | undefined;
 
-  private url: string = 'https://damp-harbor-33548.herokuapp.com'
+  private url: string = 'http://localhost:3000/apimonitorias/'
 
   calendarClassRoom: Room[][] = [
     [{ selected: false }, { selected: false }, { selected: false }, { selected: false }, { selected: false }, { selected: false }],
@@ -159,5 +159,9 @@ export class ClassRoomService {
     let temp = this.selectedClassRoom?.assistant
     temp?.push(new Assistant(formValues.code, formValues.name, this.calendarAssistant))
     return this.http.patch<Assistant>(this.url + 'classroom/' + this.selectedClassRoom?._id, temp)
+  }
+
+  deleteClassRoom(id: string):Observable<ClassRoom> {
+    return this.http.delete<ClassRoom>(this.url + 'classroom/' + id)
   }
 }

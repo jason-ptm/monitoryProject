@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import { ClassRoomService } from 'src/app/services/class-room.service';
 import { DataService } from 'src/app/services/data.service';
+import Swal from 'sweetalert2';
 
 declare var $: any;
 
@@ -61,7 +62,36 @@ export class ViewComponent implements OnInit {
     this._classRoomService.setSelectedClassRoom(classRoom);
   }
 
-  deleteClassRoom() {
-    console.log(1)
+  deleteClassRoom(classRoom: any) {
+    Swal.fire({
+      icon: 'question',
+      title: 'Quieres eliminar la clase?',
+      showDenyButton: true,
+      confirmButtonText: 'Confirmar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._classRoomService.deleteClassRoom(classRoom._id).subscribe(res=>{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Clase eliminada!',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          this._classRoomService.clearClassCalendar()
+          this._classRoomService.getClassRooms()
+        }, err =>{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Algo salió mal!',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        })
+      }
+    })
+    
   }
 }
